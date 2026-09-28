@@ -1,5 +1,9 @@
 # ColdMail AI
 
+**Live demo:** https://coldmail-ai-ogbx.onrender.com
+
+> Hosted on a free plan, so the first load can take about a minute while the server wakes up.
+
 An AI-powered cold email generator for job seekers. Paste your resume and a job description, pick a tone, and get a tailored cold email. Then send it straight from your Gmail, track the application, refine it with an AI chatbot, and check suspicious recruiter emails with a built-in scam checker.
 
 ## Features
@@ -15,7 +19,8 @@ An AI-powered cold email generator for job seekers. Paste your resume and a job 
 ## Tech Stack
 
 - **Backend**: Python, Django
-- **Database**: MySQL
+- **Database**: MySQL (local development), PostgreSQL on Neon (live demo)
+- **Hosting**: Render (free plan)
 - **Frontend**: HTML, CSS, vanilla JavaScript
 - **AI providers**: Google Gemini, Groq, OpenRouter, Mistral
 - **Email**: Gmail API via `google-auth-oauthlib`
@@ -76,6 +81,8 @@ The Google OAuth app is currently in **Testing** mode. That means:
 
 If you are running your own copy, create your own Google Cloud project and add yourself as a test user.
 
+On the live demo, Gmail connect only works for accounts added as test users. Sign-up, email generation and the scam checker work without Gmail.
+
 ## AI provider limits
 
 All four AI providers are used on free tiers with daily rate limits. This is why the fallback chain exists. If you enable billing on your primary provider (Gemini), limits are far less likely to matter.
@@ -87,7 +94,6 @@ Scanning your inbox sends email content to third-party AI providers for analysis
 ## Roadmap
 
 - "Continue with Google" login and signup
-- Deployment to Render
 - Encryption of stored Gmail tokens
 - Opt-in notice and privacy policy page
 - Per-user daily AI usage limits

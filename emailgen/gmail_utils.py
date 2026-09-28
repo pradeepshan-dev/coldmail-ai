@@ -1,5 +1,6 @@
 import os
-os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+if os.getenv('DEBUG') == 'True':
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 import base64
 import re

@@ -1,0 +1,229 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scan Inbox - ColdMail AI</title>
+
+    <!-- Gmail inbox scan stylesheet -->
+    <link rel="stylesheet" href="{% static 'emailgen/css/gmail_scan.css' %}?v=1000">
+</head>
+
+<body>
+
+    {% include 'emailgen/partials/navbar.html' %}
+
+    <!-- Main inbox scan page -->
+    <main class="scan-page">
+
+        <section class="scan-card">
+
+            <!-- Page heading -->
+            <div class="scan-header">
+                <span class="scan-label">GMAIL SECURITY</span>
+
+                <h1>Scan Your Inbox</h1>
+
+                <p>
+                    Check your 10 most recent emails for common scam
+                    indicators and suspicious red flags.
+                </p>
+            </div>
+
+
+            {% if not_connected %}
+
+                <!-- Gmail connection warning -->
+                <div class="notice-box connection-notice">
+
+                    <div class="notice-icon">↗</div>
+
+                    <div>
+                        <strong>Gmail isn't connected</strong>
+
+                        <p>
+                            Connect your Gmail account before scanning
+                            your inbox.
+                        </p>
+
+                        <a href="{% url 'gmail_connect' %}">
+                            Connect Gmail →
+                        </a>
+                    </div>
+
+                </div>
+
+
+            {% elif error %}
+
+                <!-- Scan error -->
+                <div class="notice-box error-notice">
+
+                    <div class="notice-icon">!</div>
+
+                    <div>
+                        <strong>Unable to scan your inbox</strong>
+
+                        <p>{{ error }}</p>
+                    </div>
+
+                </div>
+
+
+            {% else %}
+
+                <!-- Scan action -->
+                <div class="scan-action">
+
+                    <div>
+                        <h2>Inbox Security Scan</h2>
+
+                        <p>
+                            ColdMail AI will analyze your 10 most recent
+                            Gmail messages for common scam red flags.
+                        </p>
+                    </div>
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <button type="submit" class="scan-btn">
+                            Scan My Inbox
+                        </button>
+                    </form>
+
+                </div>
+
+
+                {% if scanned_results %}
+
+                    <!-- Scan results heading -->
+                    <div class="results-heading">
+
+                        <div>
+                            <span class="results-label">SCAN RESULTS</span>
+
+                            <h2>Recent Emails</h2>
+                        </div>
+
+                        <span class="results-count">
+                            {{ scanned_results|length }} scanned
+                        </span>
+
+                    </div>
+
+
+                    <!-- Scanned email results -->
+                    <div class="email-results">
+
+                        {% for item in scanned_results %}
+
+                        <article class="email-card">
+
+                            <!-- Email header -->
+                            <div class="email-header">
+
+                                <div class="email-sender">
+                                    <span class="sender-icon">✉</span>
+
+                                    <div>
+                                        <div class="sender">
+                                            {{ item.sender }}
+                                        </div>
+
+                                        <div class="subject">
+                                            {{ item.subject }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Risk level -->
+                                <span class="risk-badge badge-{{ item.risk_level }}">
+                                    {{ item.risk_level }}
+                                </span>
+
+                            </div>
+
+
+                            <!-- AI summary -->
+                            <div class="summary-section">
+
+                                <span class="section-label">
+                                    AI Assessment
+                                </span>
+
+                                <p class="summary">
+                                    {{ item.summary }}
+                                </p>
+
+                            </div>
+
+
+                            {% if item.red_flags %}
+
+                            <!-- Red flags -->
+                            <div class="flags-section">
+
+                                <span class="section-label">
+                                    Red Flags
+                                </span>
+
+                                <ul class="flags-list">
+
+                                    {% for flag in item.red_flags %}
+
+                                    <li>
+                                        <span class="flag-icon">!</span>
+                                        <span>{{ flag }}</span>
+                                    </li>
+
+                                    {% endfor %}
+
+                                </ul>
+
+                            </div>
+
+                            {% endif %}
+
+                        </article>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <!-- Initial scan state -->
+                    <div class="empty-scan">
+
+                        <div class="empty-icon">✓</div>
+
+                        <h2>Your inbox is ready to scan</h2>
+
+                        <p>
+                            Click "Scan My Inbox" to analyze your latest
+                            Gmail messages.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            {% endif %}
+
+
+            <!-- Back to dashboard -->
+            <div class="back-link">
+                <a href="{% url 'home' %}">
+                    ← Back to Dashboard
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

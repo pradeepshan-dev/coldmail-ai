@@ -1,0 +1,631 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - ColdMail AI</title>
+
+    <!-- Dashboard stylesheet -->
+    <link rel="stylesheet" href="{% static 'emailgen/css/home.css' %}?v=2000">
+
+</head>
+
+<body>
+
+    <!-- Shared navigation bar -->
+    {% include 'emailgen/partials/navbar.html' %}
+
+
+    <!-- =====================================================
+         MAIN DASHBOARD
+         ===================================================== -->
+
+    <main class="dashboard-page">
+
+
+        <!-- =================================================
+             WELCOME SECTION
+             ================================================= -->
+
+        <section class="welcome-section">
+
+            <div class="welcome-content">
+
+                <span class="welcome-label">
+                    YOUR COLD EMAIL WORKSPACE
+                </span>
+
+                <h1>
+                    Welcome, {{ user.username }} 👋
+                </h1>
+
+                <p>
+                    Create personalized cold emails and manage your applications
+                    with the power of AI.
+                </p>
+
+
+                <!-- Benefits -->
+
+                <div class="welcome-benefits">
+
+                    <div class="benefit-item">
+
+                        <span class="benefit-icon">
+                            ✦
+                        </span>
+
+                        <div>
+                            <strong>Save Time</strong>
+                            <small>Let AI handle the writing</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="benefit-item">
+
+                        <span class="benefit-icon">
+                            ✓
+                        </span>
+
+                        <div>
+                            <strong>Better Emails</strong>
+                            <small>Personalized and relevant</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="benefit-item">
+
+                        <span class="benefit-icon">
+                            ◷
+                        </span>
+
+                        <div>
+                            <strong>Stay Organized</strong>
+                            <small>Keep track of your emails</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Hero visual -->
+
+            <div class="hero-visual">
+
+                <div class="hero-circle hero-circle-one"></div>
+
+                <div class="hero-circle hero-circle-two"></div>
+
+                <div class="hero-envelope">
+
+                    <span class="envelope-back"></span>
+
+                    <span class="envelope-symbol">
+                        ✉
+                    </span>
+
+                    <span class="ai-badge">
+                        ✦
+                    </span>
+
+                </div>
+
+                <div class="hero-dot dot-one"></div>
+                <div class="hero-dot dot-two"></div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             GET STARTED
+             ================================================= -->
+
+        <section class="dashboard-section">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-eyebrow">
+                        WORKSPACE
+                    </span>
+
+                    <h2>
+                        Get started
+                    </h2>
+
+                    <p>
+                        Choose an option below to continue.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- Action cards -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- Create Email -->
+
+                <a href="{% url 'create_email' %}"
+                   class="dashboard-card create-card">
+
+                    <div class="card-top">
+
+                        <div class="card-icon">
+                            ✉
+                        </div>
+
+                        <span class="card-label">
+                            AI POWERED
+                        </span>
+
+                    </div>
+
+
+                    <div class="card-content">
+
+                        <h3>
+                            Create New Email
+                        </h3>
+
+                        <p>
+                            Generate a personalized cold email using your
+                            background and the job description.
+                        </p>
+
+                    </div>
+
+
+                    <div class="card-footer">
+
+                        <span class="card-link">
+                            Create Email
+                        </span>
+
+                        <span class="arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- Email History -->
+
+                <a href="{% url 'email_history' %}"
+                   class="dashboard-card history-card">
+
+                    <div class="card-top">
+
+                        <div class="card-icon">
+                            ◷
+                        </div>
+
+                        <span class="card-label">
+                            STAY ORGANIZED
+                        </span>
+
+                    </div>
+
+
+                    <div class="card-content">
+
+                        <h3>
+                            Email History
+                        </h3>
+
+                        <p>
+                            View and manage the cold emails you generated
+                            previously.
+                        </p>
+
+                    </div>
+
+
+                    <div class="card-footer">
+
+                        <span class="card-link">
+                            View History
+                        </span>
+
+                        <span class="arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- Gmail -->
+
+                <a href="{% url 'gmail_connect' %}"
+                   class="dashboard-card gmail-card">
+
+                    <div class="card-top">
+
+                        <div class="card-icon">
+                            ↗
+                        </div>
+
+                        <span class="card-label">
+                            CONNECT & SEND
+                        </span>
+
+                    </div>
+
+
+                    <div class="card-content">
+
+                        <h3>
+                            Connect Gmail
+                        </h3>
+
+                        <p>
+                            Connect your Gmail account to send generated emails
+                            directly from ColdMail AI.
+                        </p>
+
+                    </div>
+
+
+                    <div class="card-footer">
+
+                        <span class="card-link">
+
+                            {% if gmail_connected %}
+                                Gmail Connected
+                            {% else %}
+                                Connect Gmail
+                            {% endif %}
+
+                        </span>
+
+                        <span class="arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             LOWER DASHBOARD
+             ================================================= -->
+
+        <section class="lower-dashboard">
+
+
+            <!-- =================================================
+                 QUICK OVERVIEW
+                 ================================================= -->
+
+            <div class="overview-card">
+
+                <div class="panel-heading">
+
+                    <div>
+
+                        <span class="panel-eyebrow">
+                            WORKSPACE STATUS
+                        </span>
+
+                        <h2>
+                            Quick Overview
+                        </h2>
+
+                        <p>
+                            Your ColdMail AI workspace
+                        </p>
+
+                    </div>
+
+                    <span class="panel-icon">
+                        ◈
+                    </span>
+
+                </div>
+
+
+                <div class="overview-list">
+
+
+                    <!-- Email Generator -->
+
+                    <div class="overview-item">
+
+                        <div class="overview-icon blue">
+                            ✉
+                        </div>
+
+                        <div class="overview-text">
+
+                            <strong>
+                                Email Generator
+                            </strong>
+
+                            <span>
+                                {{ email_count }}
+                                email{{ email_count|pluralize }} generated
+                            </span>
+
+                        </div>
+
+                        <span class="overview-status ready">
+                            Ready
+                        </span>
+
+                    </div>
+
+
+                    <!-- Email History -->
+
+                    <div class="overview-item">
+
+                        <div class="overview-icon green">
+                            ◷
+                        </div>
+
+                        <div class="overview-text">
+
+                            <strong>
+                                Email History
+                            </strong>
+
+                            <span>
+                                Keep your generated emails organized
+                            </span>
+
+                        </div>
+
+                        <span class="overview-status ready">
+                            Ready
+                        </span>
+
+                    </div>
+
+
+                    <!-- Scam Checker -->
+
+                    <div class="overview-item">
+
+                        <div class="overview-icon purple">
+                            ✓
+                        </div>
+
+                        <div class="overview-text">
+
+                            <strong>
+                                Scam Checker
+                            </strong>
+
+                            <span>
+                                {{ scam_check_count }}
+                                check{{ scam_check_count|pluralize }} completed
+                            </span>
+
+                        </div>
+
+                        <span class="overview-status ready">
+                            Ready
+                        </span>
+
+                    </div>
+
+
+                    <!-- Gmail Integration -->
+
+                    <div class="overview-item">
+
+                        <div class="overview-icon purple">
+                            ↗
+                        </div>
+
+                        <div class="overview-text">
+
+                            <strong>
+                                Gmail Integration
+                            </strong>
+
+                            <span>
+                                Send emails directly through Gmail
+                            </span>
+
+                        </div>
+
+
+                        {% if gmail_connected %}
+
+                            <span class="overview-status ready">
+                                Connected
+                            </span>
+
+                        {% else %}
+
+                            <span class="overview-status connect">
+                                Connect
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RECENT ACTIVITY
+                 ================================================= -->
+
+            <div class="activity-card">
+
+                <div class="panel-heading">
+
+                    <div>
+
+                        <span class="panel-eyebrow">
+                            LATEST
+                        </span>
+
+                        <h2>
+                            Recent Activity
+                        </h2>
+
+                        <p>
+                            Your latest email activity
+                        </p>
+
+                    </div>
+
+                    <a href="{% url 'email_history' %}">
+                        View History →
+                    </a>
+
+                </div>
+
+
+                {% if recent_emails %}
+
+                    <div class="recent-activity-list">
+
+                        {% for email in recent_emails %}
+
+                            <a href="{% url 'email_result' email.pk %}"
+                               class="activity-item">
+
+                                <div class="activity-icon">
+                                    ✉
+                                </div>
+
+
+                                <div class="activity-details">
+
+                                    <strong>
+                                        {{ email.company_name }}
+                                    </strong>
+
+                                    <span>
+                                        {{ email.subject_line }}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="activity-date">
+                                    {{ email.created_at|date:"M d, Y" }}
+                                </div>
+
+
+                                <span class="activity-arrow">
+                                    →
+                                </span>
+
+                            </a>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                {% else %}
+
+
+                    <!-- Empty activity -->
+
+                    <div class="empty-activity">
+
+                        <div class="empty-icon">
+                            ✉
+                        </div>
+
+                        <h3>
+                            No recent activity
+                        </h3>
+
+                        <p>
+                            Create your first cold email to see your activity here.
+                        </p>
+
+                        <a href="{% url 'create_email' %}"
+                           class="empty-button">
+                            Create Your First Email
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             PRO TIP
+             ================================================= -->
+
+        <section class="pro-tip">
+
+            <div class="tip-icon">
+                💡
+            </div>
+
+            <div class="tip-content">
+
+                <span class="tip-label">
+                    QUICK TIP
+                </span>
+
+                <strong>
+                    Pro Tip
+                </strong>
+
+                <p>
+                    Be specific with the job description to help ColdMail AI
+                    create a more personalized email.
+                </p>
+
+            </div>
+
+            <a href="{% url 'create_email' %}"
+               class="tip-action">
+                Start Writing →
+            </a>
+
+        </section>
+
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scam Checker - ColdMail AI</title>
+
+    <!-- Scam checker stylesheet -->
+    <link rel="stylesheet" href="{% static 'emailgen/css/scam_checker.css' %}?v=1000">
+</head>
+
+<body>
+
+    {% include 'emailgen/partials/navbar.html' %}
+
+    <!-- Main scam checker page -->
+    <main class="checker-page">
+
+        <section class="checker-card">
+
+            <!-- Page heading -->
+            <div class="checker-header">
+                <span class="checker-label">AI SECURITY CHECK</span>
+
+                <h1>Is This Email Real or a Scam?</h1>
+
+                <p>
+                    Paste a recruiter or company email below and let
+                    ColdMail AI check it for common scam indicators.
+                </p>
+            </div>
+
+
+            <!-- Form validation errors -->
+            {% if form.errors %}
+
+            <div class="error-box">
+
+                <strong>Please check the following:</strong>
+
+                {% for field, errs in form.errors.items %}
+                    <div>{{ field }}: {{ errs.0 }}</div>
+                {% endfor %}
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- Scam checking form -->
+            <form method="post">
+
+                {% csrf_token %}
+
+                <!-- Sender email -->
+                <div class="form-group">
+
+                    <label for="sender_email">
+                        Sender Email
+                        <span class="optional-label">Optional</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="sender_email"
+                        name="sender_email"
+                        placeholder="e.g. hr@company-hiring.com"
+                    >
+
+                    <span class="field-help">
+                        Adding the sender address can help identify suspicious domains.
+                    </span>
+
+                </div>
+
+
+                <!-- Email content -->
+                <div class="form-group">
+
+                    <label for="email_content">
+                        Email Content
+                    </label>
+
+                    <textarea
+                        id="email_content"
+                        name="email_content"
+                        rows="10"
+                        placeholder="Paste the full email content here"
+                        required
+                    ></textarea>
+
+                    <span class="field-help">
+                        Include the complete message, including links or payment requests if present.
+                    </span>
+
+                </div>
+
+
+                <!-- Submit button -->
+                <button type="submit" class="check-btn">
+                    Check for Scam Risk
+                </button>
+
+            </form>
+
+
+            <!-- AI result -->
+            {% if result %}
+
+            <section class="result-box result-{{ result.risk_level }}">
+
+                <!-- Result header -->
+                <div class="result-header">
+
+                    <div>
+                        <span class="result-label">
+                            AI ASSESSMENT
+                        </span>
+
+                        <h2>Scam Risk Result</h2>
+                    </div>
+
+                    <span class="result-badge badge-{{ result.risk_level }}">
+                        {{ result.risk_level }}
+                    </span>
+
+                </div>
+
+
+                <!-- Result summary -->
+                <div class="result-summary-section">
+
+                    <span class="section-label">
+                        Assessment
+                    </span>
+
+                    <p class="result-summary">
+                        {{ result.summary }}
+                    </p>
+
+                </div>
+
+
+                <!-- Red flags -->
+                {% if result.red_flags %}
+
+                <div class="flags-section">
+
+                    <span class="section-label">
+                        Red Flags Detected
+                    </span>
+
+                    <ul class="flags-list">
+
+                        {% for flag in result.red_flags %}
+
+                        <li>
+                            <span class="flag-icon">!</span>
+                            <span>{{ flag }}</span>
+                        </li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                </div>
+
+                {% endif %}
+
+            </section>
+
+            {% endif %}
+
+
+            <!-- Back to dashboard -->
+            <div class="back-link">
+
+                <a href="{% url 'home' %}">
+                    ← Back to Dashboard
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

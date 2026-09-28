@@ -1,0 +1,415 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Chatbot - ColdMail AI</title>
+
+    <!-- AI chatbot page stylesheet -->
+    <link rel="stylesheet" href="{% static 'emailgen/css/email_chatbot.css' %}?v=1000">
+</head>
+
+<body>
+
+    {% include 'emailgen/partials/navbar.html' %}
+
+    <!-- Main chatbot workspace -->
+    <main class="chatbot-page">
+
+        <div class="chatbot-wrapper">
+
+            <!-- =========================================
+                 Left side: Generated email list
+                 ========================================= -->
+            <aside class="chatbot-sidebar">
+
+                <div class="sidebar-header">
+                    <span class="sidebar-label">YOUR EMAILS</span>
+                    <h2>Email History</h2>
+                    <p>Select an email to refine it with AI.</p>
+                </div>
+
+                <div class="email-list">
+
+                    {% for email in emails %}
+
+                    <!-- Select an email for the AI chatbot -->
+                    <a href="{% url 'email_chatbot_specific' email.pk %}"
+                       class="email-select-item {% if selected_email.pk == email.pk %}active{% endif %}">
+
+                        <div class="email-item-icon">✉</div>
+
+                        <div class="email-item-content">
+                            <div class="company">{{ email.company_name }}</div>
+
+                            <div class="subject">
+                                {{ email.subject_line }}
+                            </div>
+                        </div>
+
+                        <span class="email-item-arrow">→</span>
+
+                    </a>
+
+                    {% empty %}
+
+                    <div class="sidebar-empty">
+                        <div class="sidebar-empty-icon">✉</div>
+                        <p>No emails yet.</p>
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </aside>
+
+
+            <!-- =========================================
+                 Right side: AI chatbot
+                 ========================================= -->
+            <section class="chatbot-main">
+
+                {% if selected_email %}
+
+                <!-- Chatbot header -->
+                <div class="chatbot-header">
+
+                    <div>
+                        <span class="chatbot-label">AI EMAIL ASSISTANT</span>
+
+                        <h1>
+                            Refine your email
+                        </h1>
+
+                        <p>
+                            Ask ColdMail AI to improve, shorten, or change your email.
+                        </p>
+                    </div>
+
+                    <div class="ai-status">
+                        <span class="status-dot"></span>
+                        AI Ready
+                    </div>
+
+                </div>
+
+
+                <!-- Generated email preview -->
+                <div class="email-preview">
+
+                    <div class="preview-header">
+                        <div>
+                            <span class="preview-label">GENERATED EMAIL</span>
+                            <h2>{{ selected_email.company_name }}</h2>
+                        </div>
+
+                        <button type="button"
+                                class="copy-btn"
+                                onclick="copyEmail()">
+                            Copy Email
+                        </button>
+                    </div>
+
+
+                    <!-- Subject -->
+                    <div class="field-group">
+
+                        <label for="subject">
+                            Subject Line
+                        </label>
+
+                        <input type="text"
+                               id="subject"
+                               value="{{ selected_email.subject_line }}"
+                               readonly>
+
+                    </div>
+
+
+                    <!-- Email body -->
+                    <div class="field-group">
+
+                        <label for="body">
+                            Email Body
+                        </label>
+
+                        <textarea id="body"
+                                  rows="7"
+                                  readonly>{{ selected_email.generated_body }}</textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- AI conversation area -->
+                <div class="chat-section">
+
+                    <div class="chat-section-header">
+                        <div>
+                            <h2>AI Assistant</h2>
+                            <p>Tell the AI what you want to change.</p>
+                        </div>
+                    </div>
+
+
+                    <!-- Chat messages appear here -->
+                    <div class="chat-log" id="chatLog"></div>
+
+
+                    <!-- Chat input -->
+                    <div class="chat-input-row">
+
+                        <input type="text"
+                               id="chatInput"
+                               placeholder="e.g. Make it shorter, add more confidence..."
+                               autocomplete="off">
+
+                        <button type="button"
+                                id="chatSendBtn"
+                                onclick="sendRefinement()">
+                            Send
+                        </button>
+
+                    </div>
+
+
+                    <!-- Example prompts -->
+                    <div class="chat-suggestions">
+                        <span>Try:</span>
+                        <button type="button"
+                                onclick="useSuggestion('Make it shorter')">
+                            Make it shorter
+                        </button>
+
+                        <button type="button"
+                                onclick="useSuggestion('Make it more confident')">
+                            More confident
+                        </button>
+
+                        <button type="button"
+                                onclick="useSuggestion('Make it more professional')">
+                            More professional
+                        </button>
+                    </div>
+
+                </div>
+
+
+                {% else %}
+
+                <!-- Empty state when no email exists -->
+                <div class="empty-state">
+
+                    <div class="empty-icon">✦</div>
+
+                    <h2>No email selected</h2>
+
+                    <p>
+                        Generate an email first, then use the AI assistant
+                        to refine it.
+                    </p>
+
+                    <a href="{% url 'create_email' %}">
+                        Create Your First Email →
+                    </a>
+
+                </div>
+
+                {% endif %}
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        {% if selected_email %}
+
+        let currentPk = {{ selected_email.pk }};
+
+
+        /* Copy the current email to clipboard */
+        function copyEmail() {
+
+            const subject = document.getElementById('subject').value;
+            const body = document.getElementById('body').value;
+
+            navigator.clipboard.writeText(
+                "Subject: " + subject + "\n\n" + body
+            );
+
+            alert('Copied to clipboard!');
+        }
+
+
+        /* Get Django CSRF cookie */
+        function getCookie(name) {
+
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+
+            if (parts.length === 2) {
+                return parts.pop().split(';').shift();
+            }
+        }
+
+
+        /* Add a message to the chat window */
+        function addChatMessage(text, sender) {
+
+            const log = document.getElementById('chatLog');
+
+            const msg = document.createElement('div');
+
+            msg.className = 'chat-msg chat-' + sender;
+
+            msg.textContent = text;
+
+            log.appendChild(msg);
+
+            log.scrollTop = log.scrollHeight;
+        }
+
+
+        /* Put a suggested instruction into the input */
+        function useSuggestion(text) {
+
+            const input = document.getElementById('chatInput');
+
+            input.value = text;
+
+            input.focus();
+        }
+
+
+        /* Send refinement request to Django */
+        function sendRefinement() {
+
+            const input = document.getElementById('chatInput');
+
+            const instruction = input.value.trim();
+
+            if (!instruction) {
+                return;
+            }
+
+            const btn = document.getElementById('chatSendBtn');
+
+            /* Show user's message */
+            addChatMessage(instruction, 'user');
+
+            input.value = '';
+
+            btn.disabled = true;
+            btn.textContent = 'Thinking...';
+
+
+            /* Prepare request data */
+            const formData = new FormData();
+
+            formData.append('instruction', instruction);
+
+
+            /* Send request to the existing Django endpoint */
+            fetch(`/email-refine/${currentPk}/`, {
+
+                method: 'POST',
+
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+
+                body: formData,
+
+            })
+
+            .then(res => res.json())
+
+            .then(data => {
+
+                btn.disabled = false;
+                btn.textContent = 'Send';
+
+
+                /* Handle backend error */
+                if (data.error) {
+
+                    addChatMessage(
+                        'Error: ' + data.error,
+                        'ai'
+                    );
+
+                    return;
+                }
+
+
+                /* AI edited the email */
+                if (data.action === 'edit') {
+
+                    document.getElementById('subject').value =
+                        data.subject;
+
+                    document.getElementById('body').value =
+                        data.body;
+
+                    currentPk = data.new_pk;
+
+                    addChatMessage(
+                        'Updated the email for you.',
+                        'ai'
+                    );
+
+                }
+
+                /* AI returned a normal answer */
+                else if (data.action === 'answer') {
+
+                    addChatMessage(
+                        data.text,
+                        'ai'
+                    );
+                }
+
+            })
+
+            .catch(() => {
+
+                btn.disabled = false;
+                btn.textContent = 'Send';
+
+                addChatMessage(
+                    'Something went wrong. Try again.',
+                    'ai'
+                );
+
+            });
+        }
+
+
+        /* Allow Enter key to send the message */
+        document.getElementById('chatInput').addEventListener(
+            'keydown',
+            function(event) {
+
+                if (event.key === 'Enter') {
+
+                    event.preventDefault();
+
+                    sendRefinement();
+                }
+            }
+        );
+
+        {% endif %}
+
+    </script>
+
+</body>
+</html>

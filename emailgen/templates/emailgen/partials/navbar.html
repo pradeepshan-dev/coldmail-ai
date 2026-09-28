@@ -1,0 +1,616 @@
+{% load static %}
+
+<!-- =====================================================
+     NAVBAR CSS
+     Version increased to 2001 to avoid browser cache
+     ===================================================== -->
+
+<link rel="stylesheet" href="{% static 'emailgen/css/navbar.css' %}?v=2001">
+
+
+<nav class="navbar">
+
+    <div class="navbar-inner">
+
+        <!-- =================================================
+             COLDMAIL AI BRAND
+             ================================================= -->
+
+        <a href="{% url 'home' %}" class="navbar-brand">
+
+            <span class="brand-icon">
+
+                <span class="brand-mail">✉</span>
+
+                <span class="brand-spark">✦</span>
+
+            </span>
+
+
+            <span class="brand-text">
+
+                <span class="brand-name">
+                    ColdMail
+                </span>
+
+                <span class="brand-ai">
+                    AI
+                </span>
+
+            </span>
+
+        </a>
+
+
+        <!-- =================================================
+             NAVIGATION LINKS
+             ================================================= -->
+
+        <div class="navbar-links" id="navbarLinks">
+
+
+            <!-- Dashboard -->
+
+            <a
+                href="{% url 'home' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+            >
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <!-- New Email -->
+
+            <a
+                href="{% url 'create_email' %}"
+                class="nav-link new-email-link {% if request.resolver_match.url_name == 'create_email' %}active{% endif %}"
+            >
+
+                <span class="plus-icon">
+                    +
+                </span>
+
+                <span>
+                    New Email
+                </span>
+
+            </a>
+
+
+            <!-- History -->
+
+            <a
+                href="{% url 'email_history' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'email_history' %}active{% endif %}"
+            >
+
+                <span class="nav-icon">
+                    ◷
+                </span>
+
+                <span>
+                    History
+                </span>
+
+            </a>
+
+
+            <!-- AI Chatbot -->
+
+            <a
+                href="{% url 'email_chatbot' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'email_chatbot' or request.resolver_match.url_name == 'email_chatbot_specific' %}active{% endif %}"
+            >
+
+                <span class="nav-icon">
+                    ✦
+                </span>
+
+                <span>
+                    AI Chatbot
+                </span>
+
+            </a>
+
+
+            <!-- Scam Checker -->
+
+            <a
+                href="{% url 'scam_checker' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'scam_checker' %}active{% endif %}"
+            >
+
+                <span class="nav-icon">
+                    ✓
+                </span>
+
+                <span>
+                    Scam Checker
+                </span>
+
+            </a>
+
+
+            <!-- Gmail Inbox Scan -->
+
+            <a
+                href="{% url 'gmail_scan' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'gmail_scan' %}active{% endif %}"
+            >
+
+                <span class="nav-icon">
+                    ↗
+                </span>
+
+                <span>
+                    Scan Inbox
+                </span>
+
+            </a>
+
+
+            <!-- =================================================
+                 PROFILE MENU
+                 ================================================= -->
+
+            <div class="profile-menu-wrapper">
+
+
+                <!-- Profile Button -->
+
+                <button
+                    type="button"
+                    class="profile-trigger"
+                    onclick="toggleProfileMenu()"
+                    aria-label="Open profile menu"
+                >
+
+
+                    {% if request.user.detail.profile_picture %}
+
+                        <img
+                            src="{{ request.user.detail.profile_picture.url }}"
+                            class="profile-avatar-img"
+                            alt="Profile"
+                        >
+
+                    {% else %}
+
+                        <span class="profile-avatar-initial">
+
+                            {{ request.user.username|slice:":1"|upper }}
+
+                        </span>
+
+                    {% endif %}
+
+
+                    <span class="profile-username">
+
+                        {{ request.user.username }}
+
+                    </span>
+
+
+                    <span class="profile-chevron">
+
+                        ⌄
+
+                    </span>
+
+
+                </button>
+
+
+                <!-- =================================================
+                     PROFILE DROPDOWN
+                     ================================================= -->
+
+                <div
+                    class="profile-dropdown"
+                    id="profileDropdown"
+                >
+
+
+                    <!-- Profile information -->
+
+                    <div class="profile-dropdown-header">
+
+
+                        {% if request.user.detail.profile_picture %}
+
+                            <img
+                                src="{{ request.user.detail.profile_picture.url }}"
+                                class="profile-avatar-img-large"
+                                alt="Profile"
+                            >
+
+                        {% else %}
+
+                            <span class="profile-avatar-initial-large">
+
+                                {{ request.user.username|slice:":1"|upper }}
+
+                            </span>
+
+                        {% endif %}
+
+
+                        <div class="profile-user-info">
+
+
+                            <div class="profile-dropdown-name">
+
+                                {{ request.user.username }}
+
+                            </div>
+
+
+                            <div class="profile-dropdown-email">
+
+                                {{ request.user.email }}
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- Divider -->
+
+                    <div class="profile-divider"></div>
+
+
+                    <!-- Change Profile Photo -->
+
+                    <div class="profile-dropdown-section">
+
+
+                        <label class="profile-upload-label">
+
+
+                            <span class="dropdown-item-icon">
+
+                                ◎
+
+                            </span>
+
+
+                            <span>
+
+                                Change Photo
+
+                            </span>
+
+
+                            <input
+                                type="file"
+                                id="profilePicInput"
+                                accept="image/*"
+                                onchange="uploadProfilePicture()"
+                                hidden
+                            >
+
+
+                        </label>
+
+
+                    </div>
+
+
+                    <!-- Gmail Connection -->
+
+                    <div class="profile-dropdown-section">
+
+
+                        <span class="profile-dropdown-label">
+
+                            Gmail Connection
+
+                        </span>
+
+
+                        {% if request.user.gmail_account %}
+
+
+                            <span class="profile-gmail-connected">
+
+
+                                <span class="connection-dot"></span>
+
+
+                                Connected
+
+
+                            </span>
+
+
+                        {% else %}
+
+
+                            <a
+                                href="{% url 'gmail_connect' %}"
+                                class="profile-gmail-connect-link"
+                            >
+
+                                Connect Gmail →
+
+                            </a>
+
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                    <!-- Divider -->
+
+                    <div class="profile-divider"></div>
+
+
+                    <!-- Logout -->
+
+                    <form
+                        method="post"
+                        action="{% url 'logout' %}"
+                        class="profile-dropdown-logout"
+                    >
+
+
+                        {% csrf_token %}
+
+
+                        <button type="submit">
+
+
+                            <span>
+                                ↪
+                            </span>
+
+
+                            <span>
+                                Logout
+                            </span>
+
+
+                        </button>
+
+
+                    </form>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             MOBILE HAMBURGER
+             ================================================= -->
+
+        <button
+            class="menu-toggle"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            onclick="toggleNavbar()"
+        >
+
+
+            <span></span>
+
+            <span></span>
+
+            <span></span>
+
+
+        </button>
+
+
+    </div>
+
+</nav>
+
+
+
+<script>
+
+/* =========================================================
+   MOBILE NAVIGATION
+   ========================================================= */
+
+function toggleNavbar() {
+
+    const navbarLinks =
+        document.getElementById("navbarLinks");
+
+    const menuButton =
+        document.querySelector(".menu-toggle");
+
+
+    navbarLinks.classList.toggle("show");
+
+
+    const isOpen =
+        navbarLinks.classList.contains("show");
+
+
+    menuButton.setAttribute(
+        "aria-expanded",
+        isOpen
+    );
+
+}
+
+
+/* =========================================================
+   PROFILE DROPDOWN
+   ========================================================= */
+
+function toggleProfileMenu() {
+
+    const dropdown =
+        document.getElementById("profileDropdown");
+
+
+    dropdown.classList.toggle("active");
+
+}
+
+
+/* =========================================================
+   CLOSE PROFILE DROPDOWN
+   ========================================================= */
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        const wrapper =
+            document.querySelector(
+                ".profile-menu-wrapper"
+            );
+
+
+        const dropdown =
+            document.getElementById(
+                "profileDropdown"
+            );
+
+
+        if (
+            wrapper &&
+            dropdown &&
+            !wrapper.contains(event.target)
+        ) {
+
+            dropdown.classList.remove("active");
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   GET CSRF COOKIE
+   ========================================================= */
+
+function getCookie(name) {
+
+    const value =
+        `; ${document.cookie}`;
+
+
+    const parts =
+        value.split(`; ${name}=`);
+
+
+    if (parts.length === 2) {
+
+        return parts
+            .pop()
+            .split(";")
+            .shift();
+
+    }
+
+}
+
+
+/* =========================================================
+   PROFILE PICTURE UPLOAD
+   ========================================================= */
+
+function uploadProfilePicture() {
+
+    const input =
+        document.getElementById(
+            "profilePicInput"
+        );
+
+
+    if (input.files.length === 0) {
+
+        return;
+
+    }
+
+
+    const formData =
+        new FormData();
+
+
+    formData.append(
+        "profile_picture",
+        input.files[0]
+    );
+
+
+    fetch(
+        "{% url 'update_profile_picture' %}",
+        {
+            method: "POST",
+
+            headers: {
+
+                "X-CSRFToken":
+                    getCookie("csrftoken")
+
+            },
+
+            body: formData
+
+        }
+    )
+
+    .then(
+        function (response) {
+
+            return response.json();
+
+        }
+    )
+
+    .then(
+        function (data) {
+
+            if (data.success) {
+
+                location.reload();
+
+            }
+
+        }
+    )
+
+    .catch(
+        function (error) {
+
+            console.error(
+                "Profile picture upload failed:",
+                error
+            );
+
+        }
+    );
+
+}
+
+</script>

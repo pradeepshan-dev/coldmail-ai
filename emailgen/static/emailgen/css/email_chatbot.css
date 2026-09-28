@@ -1,0 +1,1012 @@
+/* =========================================
+   Global reset
+   ========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    min-height: 100vh;
+
+    background: #f6f8fb;
+
+    color: #172033;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+
+/* =========================================
+   Main page
+   ========================================= */
+
+.chatbot-page {
+    width: 100%;
+
+    min-height: calc(100vh - 68px);
+
+    padding: 30px 20px 45px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+
+/* =========================================
+   Main chatbot workspace
+   ========================================= */
+
+.chatbot-wrapper {
+    display: flex;
+
+    width: 100%;
+    max-width: 1180px;
+
+    min-height: 700px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e7ef;
+
+    border-radius: 14px;
+
+    box-shadow: 0 5px 20px rgba(16, 24, 40, 0.05);
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   Sidebar
+   ========================================= */
+
+.chatbot-sidebar {
+    width: 285px;
+
+    flex-shrink: 0;
+
+    background: #fafbfc;
+
+    border-right: 1px solid #e4e7ec;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Sidebar heading */
+.sidebar-header {
+    padding: 25px 20px 20px;
+
+    border-bottom: 1px solid #e4e7ec;
+}
+
+.sidebar-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #2563eb;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.sidebar-header h2 {
+    margin-bottom: 5px;
+
+    color: #172033;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.sidebar-header p {
+    color: #667085;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* Email list */
+.email-list {
+    flex: 1;
+
+    padding: 10px 0;
+
+    overflow-y: auto;
+}
+
+
+/* Individual email */
+.email-select-item {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 13px 16px;
+
+    border-left: 3px solid transparent;
+
+    text-decoration: none;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.email-select-item:hover {
+    background: #f1f5f9;
+}
+
+
+/* Selected email */
+.email-select-item.active {
+    background: #eef4ff;
+
+    border-left-color: #2563eb;
+}
+
+
+/* Email icon */
+.email-item-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+
+    flex-shrink: 0;
+
+    background: #eef2f7;
+
+    border-radius: 8px;
+
+    color: #667085;
+
+    font-size: 15px;
+}
+
+.email-select-item.active .email-item-icon {
+    background: #dbeafe;
+
+    color: #2563eb;
+}
+
+
+/* Email information */
+.email-item-content {
+    min-width: 0;
+
+    flex: 1;
+}
+
+.email-item-content .company {
+    margin-bottom: 3px;
+
+    color: #344054;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.email-item-content .subject {
+    color: #98a2b3;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* Email arrow */
+.email-item-arrow {
+    color: #b0b8c4;
+
+    font-size: 15px;
+
+    flex-shrink: 0;
+}
+
+.email-select-item:hover .email-item-arrow,
+.email-select-item.active .email-item-arrow {
+    color: #2563eb;
+}
+
+
+/* Sidebar empty state */
+.sidebar-empty {
+    padding: 35px 20px;
+
+    text-align: center;
+
+    color: #98a2b3;
+}
+
+.sidebar-empty-icon {
+    margin-bottom: 8px;
+
+    font-size: 22px;
+}
+
+.sidebar-empty p {
+    font-size: 12px;
+}
+
+
+/* =========================================
+   Main chatbot area
+   ========================================= */
+
+.chatbot-main {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 30px 34px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================================
+   Chatbot header
+   ========================================= */
+
+.chatbot-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 22px;
+}
+
+.chatbot-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #2563eb;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.chatbot-header h1 {
+    margin-bottom: 5px;
+
+    color: #172033;
+
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.chatbot-header p {
+    color: #667085;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* AI status */
+.ai-status {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 7px 10px;
+
+    background: #f0fdf4;
+
+    border: 1px solid #dcfce7;
+
+    border-radius: 20px;
+
+    color: #15803d;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    background: #22c55e;
+
+    border-radius: 50%;
+}
+
+
+/* =========================================
+   Email preview
+   ========================================= */
+
+.email-preview {
+    padding: 20px;
+
+    background: #fafbfc;
+
+    border: 1px solid #e4e7ec;
+
+    border-radius: 11px;
+
+    margin-bottom: 18px;
+}
+
+
+/* Preview heading */
+.preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 17px;
+}
+
+.preview-label {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #98a2b3;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.8px;
+}
+
+.preview-header h2 {
+    color: #344054;
+
+    font-size: 15px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   Form fields
+   ========================================= */
+
+.field-group {
+    width: 100%;
+
+    margin-bottom: 15px;
+}
+
+.field-group:last-child {
+    margin-bottom: 0;
+}
+
+.field-group label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #344054;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* Subject */
+#subject {
+    display: block;
+
+    width: 100%;
+    height: 43px;
+
+    padding: 0 12px;
+
+    background: #ffffff;
+
+    border: 1px solid #d0d5dd;
+
+    border-radius: 7px;
+
+    color: #172033;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    outline: none;
+}
+
+
+/* Email body */
+#body {
+    display: block;
+
+    width: 100%;
+
+    min-height: 170px;
+
+    padding: 11px 12px;
+
+    background: #ffffff;
+
+    border: 1px solid #d0d5dd;
+
+    border-radius: 7px;
+
+    color: #172033;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    resize: vertical;
+
+    outline: none;
+}
+
+
+/* Copy button */
+.copy-btn {
+    height: 38px;
+
+    padding: 0 13px;
+
+    background: #eef2f7;
+
+    border: none;
+
+    border-radius: 7px;
+
+    color: #344054;
+
+    font-family: inherit;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease;
+}
+
+.copy-btn:hover {
+    background: #e4e7ec;
+}
+
+
+/* =========================================
+   AI chat section
+   ========================================= */
+
+.chat-section {
+    flex: 1;
+
+    min-height: 240px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Chat section heading */
+.chat-section-header {
+    margin-bottom: 10px;
+}
+
+.chat-section-header h2 {
+    margin-bottom: 3px;
+
+    color: #172033;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.chat-section-header p {
+    color: #667085;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   Chat log
+   ========================================= */
+
+.chat-log {
+    flex: 1;
+
+    min-height: 125px;
+    max-height: 220px;
+
+    overflow-y: auto;
+
+    padding: 13px;
+
+    background: #fafbfc;
+
+    border: 1px solid #e4e7ec;
+
+    border-radius: 9px;
+
+    margin-bottom: 10px;
+}
+
+
+/* Individual message */
+.chat-msg {
+    width: fit-content;
+    max-width: 78%;
+
+    padding: 9px 12px;
+
+    margin-bottom: 8px;
+
+    border-radius: 9px;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    word-wrap: break-word;
+}
+
+.chat-msg:last-child {
+    margin-bottom: 0;
+}
+
+
+/* User message */
+.chat-user {
+    margin-left: auto;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    border-bottom-right-radius: 3px;
+}
+
+
+/* AI message */
+.chat-ai {
+    background: #eef2f7;
+
+    color: #344054;
+
+    border-bottom-left-radius: 3px;
+}
+
+
+/* =========================================
+   Chat input
+   ========================================= */
+
+.chat-input-row {
+    display: flex;
+
+    gap: 8px;
+}
+
+.chat-input-row input {
+    flex: 1;
+
+    min-width: 0;
+
+    height: 45px;
+
+    padding: 0 13px;
+
+    background: #ffffff;
+
+    border: 1px solid #d0d5dd;
+
+    border-radius: 8px;
+
+    color: #172033;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.chat-input-row input::placeholder {
+    color: #98a2b3;
+}
+
+.chat-input-row input:focus {
+    border-color: #2563eb;
+
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* Send button */
+.chat-input-row button {
+    min-width: 78px;
+
+    height: 45px;
+
+    padding: 0 16px;
+
+    background: #2563eb;
+
+    border: none;
+
+    border-radius: 8px;
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+.chat-input-row button:hover {
+    background: #1d4ed8;
+}
+
+.chat-input-row button:active {
+    transform: translateY(1px);
+}
+
+.chat-input-row button:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================
+   Suggested prompts
+   ========================================= */
+
+.chat-suggestions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+    margin-top: 8px;
+}
+
+.chat-suggestions span {
+    margin-right: 2px;
+
+    color: #98a2b3;
+
+    font-size: 10px;
+}
+
+.chat-suggestions button {
+    padding: 5px 9px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e4e7ec;
+
+    border-radius: 20px;
+
+    color: #667085;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.chat-suggestions button:hover {
+    background: #eef4ff;
+
+    border-color: #bfdbfe;
+
+    color: #2563eb;
+}
+
+
+/* =========================================
+   Empty state
+   ========================================= */
+
+.empty-state {
+    width: 100%;
+
+    margin: auto;
+
+    padding: 50px 20px;
+
+    text-align: center;
+}
+
+.empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 55px;
+    height: 55px;
+
+    margin: 0 auto 16px;
+
+    background: #eef4ff;
+
+    border-radius: 13px;
+
+    color: #2563eb;
+
+    font-size: 22px;
+}
+
+.empty-state h2 {
+    margin-bottom: 7px;
+
+    color: #172033;
+
+    font-size: 19px;
+}
+
+.empty-state p {
+    max-width: 400px;
+
+    margin: 0 auto 6px;
+
+    color: #667085;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+.empty-state a {
+    display: inline-block;
+
+    margin-top: 10px;
+
+    color: #2563eb;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.empty-state a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   Large desktop
+   ========================================= */
+
+@media (min-width: 1400px) {
+
+    .chatbot-page {
+        padding-top: 40px;
+    }
+
+    .chatbot-wrapper {
+        max-width: 1250px;
+
+        min-height: 730px;
+    }
+
+    .chatbot-sidebar {
+        width: 300px;
+    }
+
+    .chatbot-main {
+        padding: 34px 40px;
+    }
+
+    .chatbot-header h1 {
+        font-size: 28px;
+    }
+}
+
+
+/* =========================================
+   Tablet
+   ========================================= */
+
+@media (max-width: 900px) {
+
+    .chatbot-page {
+        padding: 25px 15px 40px;
+    }
+
+    .chatbot-wrapper {
+        min-height: 650px;
+    }
+
+    .chatbot-sidebar {
+        width: 235px;
+    }
+
+    .chatbot-main {
+        padding: 25px;
+    }
+
+    .chatbot-header h1 {
+        font-size: 23px;
+    }
+}
+
+
+/* =========================================
+   Mobile
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    .chatbot-page {
+        padding: 18px 12px 35px;
+    }
+
+    .chatbot-wrapper {
+        flex-direction: column;
+
+        min-height: auto;
+
+        border-radius: 11px;
+    }
+
+    .chatbot-sidebar {
+        width: 100%;
+
+        max-height: 220px;
+
+        border-right: none;
+
+        border-bottom: 1px solid #e4e7ec;
+    }
+
+    .sidebar-header {
+        padding: 19px 18px 15px;
+    }
+
+    .email-list {
+        max-height: 130px;
+    }
+
+    .email-select-item {
+        padding: 11px 15px;
+    }
+
+    .chatbot-main {
+        padding: 24px 18px;
+    }
+
+    .chatbot-header {
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+    .chatbot-header h1 {
+        font-size: 23px;
+    }
+
+    .ai-status {
+        align-self: flex-start;
+    }
+
+    .email-preview {
+        padding: 16px;
+    }
+
+    .preview-header {
+        align-items: flex-start;
+    }
+
+    #body {
+        min-height: 160px;
+    }
+
+    .chat-log {
+        min-height: 120px;
+        max-height: 210px;
+    }
+}
+
+
+/* =========================================
+   Small mobile
+   ========================================= */
+
+@media (max-width: 400px) {
+
+    .chatbot-page {
+        padding: 12px 9px 28px;
+    }
+
+    .chatbot-main {
+        padding: 20px 14px;
+    }
+
+    .chatbot-header h1 {
+        font-size: 21px;
+    }
+
+    .chatbot-header p {
+        font-size: 12px;
+    }
+
+    .email-preview {
+        padding: 14px;
+    }
+
+    .preview-header {
+        flex-direction: column;
+
+        gap: 9px;
+    }
+
+    .copy-btn {
+        width: 100%;
+    }
+
+    .chat-input-row {
+        gap: 6px;
+    }
+
+    .chat-input-row button {
+        min-width: 68px;
+
+        padding: 0 12px;
+    }
+
+    .chat-suggestions button {
+        font-size: 9px;
+    }
+}

@@ -1,0 +1,945 @@
+/* =========================================================
+   GLOBAL RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   PAGE BASE
+   ========================================================= */
+
+body {
+    margin: 0;
+    padding: 0;
+
+    min-height: 100vh;
+
+    background: #f6f8fb;
+    color: #172033;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+
+/* =========================================================
+   MAIN RESULT PAGE
+   ========================================================= */
+
+.result-page {
+    width: 100%;
+    min-height: calc(100vh - 68px);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 42px 20px 60px;
+}
+
+
+/* =========================================================
+   RESULT CARD
+   ========================================================= */
+
+.result-card {
+    width: 100%;
+    max-width: 820px;
+
+    padding: 38px 42px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e7ef;
+    border-radius: 14px;
+
+    box-shadow: 0 5px 20px rgba(16, 24, 40, 0.05);
+}
+
+
+/* =========================================================
+   RESULT HEADER
+   ========================================================= */
+
+.result-header {
+    margin-bottom: 30px;
+}
+
+.result-label {
+    display: inline-block;
+
+    margin-bottom: 9px;
+
+    color: #2563eb;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.result-header h1 {
+    margin-bottom: 8px;
+
+    color: #172033;
+
+    font-size: 29px;
+    font-weight: 700;
+
+    line-height: 1.3;
+}
+
+.result-header p {
+    max-width: 650px;
+
+    color: #667085;
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.form-group {
+    width: 100%;
+    margin-bottom: 21px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #344054;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   COMPANY NAME
+   ========================================================= */
+
+.company-name {
+    width: 100%;
+
+    padding: 12px 13px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e4e7ec;
+    border-radius: 8px;
+
+    color: #172033;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   APPLICATION STATUS
+   ========================================================= */
+
+#statusSelect {
+    display: block;
+
+    width: 100%;
+    height: 46px;
+
+    padding: 0 38px 0 13px;
+
+    background-color: #ffffff;
+
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+
+    color: #172033;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+
+    outline: none;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#statusSelect:hover {
+    border-color: #98a2b3;
+}
+
+#statusSelect:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   STATUS UPDATED MESSAGE
+   ========================================================= */
+
+.status-msg {
+    display: none;
+
+    margin-top: 7px;
+
+    color: #039855;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   SUBJECT INPUT
+   ========================================================= */
+
+#subject {
+    display: block;
+
+    width: 100%;
+    height: 46px;
+
+    padding: 0 13px;
+
+    background: #f8fafc;
+
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+
+    color: #172033;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   EMAIL BODY
+   ========================================================= */
+
+#body {
+    display: block;
+
+    width: 100%;
+    min-height: 290px;
+
+    padding: 13px;
+
+    background: #f8fafc;
+
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+
+    color: #172033;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    line-height: 1.65;
+
+    resize: vertical;
+
+    outline: none;
+}
+
+
+/* =========================================================
+   COPY SUCCESS MESSAGE
+   ========================================================= */
+
+.copied-msg {
+    display: none;
+
+    margin-top: -9px;
+    margin-bottom: 15px;
+
+    color: #039855;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   MAIN BUTTON ROW
+   ========================================================= */
+
+.btn-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+    margin-bottom: 28px;
+}
+
+.btn-row button {
+    width: 100%;
+    min-height: 46px;
+
+    border: none;
+    border-radius: 8px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+.btn-row button:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================================================
+   COPY BUTTON
+   ========================================================= */
+
+.btn-copy {
+    background: #eef2f7;
+    color: #344054;
+}
+
+.btn-copy:hover {
+    background: #e4e7ec;
+}
+
+
+/* =========================================================
+   CREATE ANOTHER BUTTON
+   ========================================================= */
+
+.btn-new {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.btn-new:hover {
+    background: #1d4ed8;
+}
+
+
+/* =========================================================
+   GMAIL SECTION
+   ========================================================= */
+
+.gmail-section {
+    margin-top: 4px;
+
+    padding: 24px;
+
+    background: #fafbfc;
+
+    border: 1px solid #e4e7ec;
+    border-radius: 11px;
+}
+
+
+/* =========================================================
+   GMAIL HEADER
+   ========================================================= */
+
+.gmail-header {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 22px;
+}
+
+.gmail-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    background: #eef4ff;
+
+    border-radius: 10px;
+
+    color: #2563eb;
+
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.gmail-header h2 {
+    margin-bottom: 4px;
+
+    color: #172033;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.gmail-header p {
+    color: #667085;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   RECIPIENT INPUT
+   ========================================================= */
+
+#recipientEmail {
+    display: block;
+
+    width: 100%;
+    height: 46px;
+
+    padding: 0 13px;
+
+    background: #ffffff;
+
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+
+    color: #172033;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#recipientEmail::placeholder {
+    color: #98a2b3;
+}
+
+#recipientEmail:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   FILE INPUT
+   ========================================================= */
+
+#resumeFile {
+    display: block;
+
+    width: 100%;
+
+    padding: 10px 12px;
+
+    background: #ffffff;
+
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+
+    color: #475467;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+#resumeFile::file-selector-button {
+    margin-right: 10px;
+
+    padding: 7px 12px;
+
+    background: #eef2f7;
+
+    border: none;
+    border-radius: 6px;
+
+    color: #344054;
+
+    font-family: inherit;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+#resumeFile::file-selector-button:hover {
+    background: #e4e7ec;
+}
+
+
+/* =========================================================
+   OPTIONAL LABEL
+   ========================================================= */
+
+.optional-label {
+    margin-left: 5px;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   FIELD HELP
+   ========================================================= */
+
+.field-help {
+    display: block;
+
+    margin-top: 6px;
+
+    color: #667085;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   SEND GMAIL BUTTON
+   ========================================================= */
+
+.send-gmail-btn {
+    width: 100%;
+    min-height: 47px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+.send-gmail-btn:hover {
+    background: #1d4ed8;
+}
+
+.send-gmail-btn:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================================================
+   SEND STATUS
+   ========================================================= */
+
+.send-status {
+    min-height: 18px;
+
+    margin-top: 9px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+}
+
+.send-status.sending {
+    color: #667085;
+}
+
+.send-status.success {
+    color: #039855;
+}
+
+.send-status.error {
+    color: #b42318;
+}
+
+
+/* =========================================================
+   BACK TO DASHBOARD
+   ========================================================= */
+
+.back-link {
+    margin-top: 22px;
+
+    text-align: center;
+}
+
+.back-link a {
+    color: #2563eb;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    text-decoration: none;
+}
+
+.back-link a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+========================================= */
+
+@media (min-width: 1400px) {
+
+    .result-page {
+        padding-top: 52px;
+    }
+
+    .result-card {
+        max-width: 850px;
+        padding: 42px 46px;
+    }
+
+    .result-header h1 {
+        font-size: 31px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================= */
+
+@media (max-width: 800px) {
+
+    .result-page {
+        padding: 35px 18px 50px;
+    }
+
+    .result-card {
+        max-width: 720px;
+        padding: 32px;
+    }
+
+    .result-header h1 {
+        font-size: 27px;
+    }
+
+    #body {
+        min-height: 270px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .result-page {
+        min-height: calc(100vh - 60px);
+
+        padding: 24px 14px 40px;
+    }
+
+    .result-card {
+        padding: 25px 20px;
+
+        border-radius: 11px;
+    }
+
+    .result-header {
+        margin-bottom: 25px;
+    }
+
+    .result-label {
+        font-size: 10px;
+    }
+
+    .result-header h1 {
+        font-size: 24px;
+    }
+
+    .result-header p {
+        font-size: 13px;
+    }
+
+
+    /* Application status */
+
+    #statusSelect {
+        height: 45px;
+        font-size: 13px;
+    }
+
+
+    /* Email body */
+
+    #body {
+        min-height: 250px;
+        font-size: 13px;
+    }
+
+
+    /* Main action buttons */
+
+    .btn-row {
+        grid-template-columns: 1fr;
+
+        gap: 9px;
+
+        margin-bottom: 24px;
+    }
+
+
+    .btn-row button {
+        min-height: 46px;
+    }
+
+
+    /* Gmail section */
+
+    .gmail-section {
+        padding: 20px 17px;
+    }
+
+    .gmail-header {
+        align-items: flex-start;
+    }
+
+    .gmail-header h2 {
+        font-size: 16px;
+    }
+
+    .gmail-header p {
+        font-size: 11px;
+    }
+
+
+    /* File input */
+
+    #resumeFile {
+        font-size: 12px;
+        padding: 9px;
+    }
+
+    #resumeFile::file-selector-button {
+        padding: 6px 9px;
+        font-size: 11px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+    .result-page {
+        padding: 18px 10px 32px;
+    }
+
+    .result-card {
+        padding: 22px 16px;
+    }
+
+    .result-header h1 {
+        font-size: 22px;
+    }
+
+    .result-header p {
+        font-size: 12px;
+    }
+
+    .form-group label {
+        font-size: 12px;
+    }
+
+
+    /* Company */
+
+    .company-name {
+        padding: 11px 12px;
+        font-size: 13px;
+    }
+
+
+    /* Status */
+
+    #statusSelect {
+        height: 44px;
+        padding-left: 12px;
+
+        font-size: 12px;
+    }
+
+
+    /* Subject */
+
+    #subject,
+    #recipientEmail {
+        height: 44px;
+
+        font-size: 13px;
+    }
+
+
+    /* Email body */
+
+    #body {
+        min-height: 230px;
+
+        padding: 12px;
+
+        font-size: 13px;
+    }
+
+
+    /* Gmail */
+
+    .gmail-section {
+        padding: 18px 14px;
+    }
+
+    .gmail-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .gmail-header {
+        gap: 10px;
+    }
+
+    .gmail-header h2 {
+        font-size: 15px;
+    }
+
+    .gmail-header p {
+        font-size: 10px;
+    }
+
+
+    /* File */
+
+    #resumeFile {
+        padding: 8px;
+
+        font-size: 11px;
+    }
+
+    #resumeFile::file-selector-button {
+        margin-right: 7px;
+
+        padding: 6px 8px;
+
+        font-size: 10px;
+    }
+
+
+    /* Buttons */
+
+    .btn-row button,
+    .send-gmail-btn {
+        min-height: 44px;
+
+        font-size: 13px;
+    }
+
+
+    /* Status messages */
+
+    .status-msg,
+    .send-status {
+        font-size: 11px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================= */
+
+@media (max-width: 340px) {
+
+    .result-page {
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+
+    .result-card {
+        padding: 20px 13px;
+        border-radius: 10px;
+    }
+
+    .result-header h1 {
+        font-size: 20px;
+    }
+
+    .result-header p {
+        font-size: 12px;
+    }
+
+    .checker-card {
+        padding: 18px 12px;
+    }
+
+    .gmail-section {
+        padding: 16px 12px;
+    }
+
+    .gmail-header {
+        gap: 8px;
+    }
+
+}

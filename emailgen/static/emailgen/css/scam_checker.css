@@ -1,0 +1,630 @@
+/* =========================================
+   GLOBAL RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   PAGE
+========================================= */
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: #f6f8fb;
+    color: #172033;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+
+/* =========================================
+   MAIN CHECKER AREA
+========================================= */
+
+.checker-page {
+    width: 100%;
+    min-height: calc(100vh - 68px);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 42px 20px 60px;
+}
+
+
+/* =========================================
+   MAIN CARD
+========================================= */
+
+.checker-card {
+    width: 100%;
+    max-width: 760px;
+
+    padding: 38px 42px;
+
+    background: #ffffff;
+    border: 1px solid #e2e7ef;
+    border-radius: 14px;
+
+    box-shadow: 0 5px 20px rgba(16, 24, 40, 0.05);
+}
+
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
+.checker-header {
+    margin-bottom: 30px;
+}
+
+.checker-label {
+    display: inline-block;
+
+    margin-bottom: 9px;
+
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.checker-header h1 {
+    margin-bottom: 8px;
+
+    color: #172033;
+    font-size: 29px;
+    font-weight: 700;
+
+    line-height: 1.3;
+}
+
+.checker-header p {
+    max-width: 650px;
+
+    color: #667085;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   ERROR MESSAGE
+========================================= */
+
+.error-box {
+    width: 100%;
+
+    margin-bottom: 24px;
+    padding: 13px 15px;
+
+    background: #fff4f2;
+    border: 1px solid #fecdca;
+    border-radius: 8px;
+
+    color: #b42318;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.error-box strong {
+    display: block;
+    margin-bottom: 3px;
+}
+
+
+/* =========================================
+   FORM GROUP
+========================================= */
+
+.form-group {
+    width: 100%;
+    margin-bottom: 22px;
+}
+
+
+/* =========================================
+   LABEL
+========================================= */
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #344054;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.optional-label {
+    margin-left: 5px;
+
+    color: #98a2b3;
+    font-size: 11px;
+    font-weight: 400;
+}
+
+
+/* =========================================
+   INPUT + TEXTAREA
+========================================= */
+
+.form-group input[type="text"],
+.form-group textarea {
+    display: block;
+
+    width: 100%;
+
+    background: #ffffff;
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+
+    color: #172033;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.form-group input[type="text"] {
+    height: 46px;
+    padding: 0 13px;
+}
+
+.form-group textarea {
+    min-height: 220px;
+    padding: 13px;
+
+    line-height: 1.6;
+
+    resize: vertical;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #98a2b3;
+}
+
+
+/* =========================================
+   INPUT FOCUS
+========================================= */
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================
+   FIELD HELP
+========================================= */
+
+.field-help {
+    display: block;
+
+    margin-top: 6px;
+
+    color: #667085;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   CHECK BUTTON
+========================================= */
+
+.check-btn {
+    width: 100%;
+    height: 48px;
+
+    margin-top: 2px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+.check-btn:hover {
+    background: #1d4ed8;
+}
+
+.check-btn:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================================
+   RESULT BOX
+========================================= */
+
+.result-box {
+    margin-top: 30px;
+    padding: 24px;
+
+    border: 1px solid;
+    border-radius: 11px;
+}
+
+
+/* =========================================
+   RESULT COLORS
+========================================= */
+
+.result-safe {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+.result-caution {
+    background: #fffbeb;
+    border-color: #fde68a;
+}
+
+.result-risky {
+    background: #fff5f5;
+    border-color: #fecaca;
+}
+
+
+/* =========================================
+   RESULT HEADER
+========================================= */
+
+.result-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 22px;
+}
+
+.result-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.8px;
+}
+
+.result-safe .result-label {
+    color: #15803d;
+}
+
+.result-caution .result-label {
+    color: #b45309;
+}
+
+.result-risky .result-label {
+    color: #b42318;
+}
+
+.result-header h2 {
+    color: #172033;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   RISK BADGE
+========================================= */
+
+.result-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 78px;
+
+    padding: 6px 13px;
+
+    border-radius: 20px;
+
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.badge-safe {
+    background: #16a34a;
+}
+
+.badge-caution {
+    background: #d97706;
+}
+
+.badge-risky {
+    background: #dc2626;
+}
+
+
+/* =========================================
+   RESULT SUMMARY
+========================================= */
+
+.result-summary-section {
+    margin-bottom: 20px;
+}
+
+.section-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #667085;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.result-summary {
+    color: #344054;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   RED FLAGS
+========================================= */
+
+.flags-section {
+    padding-top: 18px;
+
+    border-top: 1px solid rgba(16, 24, 40, 0.08);
+}
+
+.flags-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    list-style: none;
+    padding: 0;
+}
+
+.flags-list li {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 9px;
+
+    color: #475467;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.flag-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 19px;
+    height: 19px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #fef3c7;
+    color: #b45309;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   BACK LINK
+========================================= */
+
+.back-link {
+    margin-top: 24px;
+
+    text-align: center;
+}
+
+.back-link a {
+    color: #2563eb;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    text-decoration: none;
+}
+
+.back-link a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   LARGE DESKTOP
+========================================= */
+
+@media (min-width: 1400px) {
+
+    .checker-page {
+        padding-top: 52px;
+    }
+
+    .checker-card {
+        max-width: 800px;
+        padding: 42px 46px;
+    }
+
+    .checker-header h1 {
+        font-size: 31px;
+    }
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 800px) {
+
+    .checker-page {
+        padding: 35px 18px 50px;
+    }
+
+    .checker-card {
+        max-width: 700px;
+        padding: 32px;
+    }
+
+    .checker-header h1 {
+        font-size: 27px;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .checker-page {
+        min-height: calc(100vh - 60px);
+        padding: 24px 14px 40px;
+    }
+
+    .checker-card {
+        padding: 25px 20px;
+        border-radius: 11px;
+    }
+
+    .checker-header {
+        margin-bottom: 25px;
+    }
+
+    .checker-label {
+        font-size: 10px;
+    }
+
+    .checker-header h1 {
+        font-size: 24px;
+    }
+
+    .checker-header p {
+        font-size: 13px;
+    }
+
+    .form-group textarea {
+        min-height: 190px;
+    }
+
+    .result-box {
+        padding: 20px 17px;
+    }
+
+    .result-header {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .result-badge {
+        align-self: flex-start;
+    }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+    .checker-page {
+        padding: 18px 10px 32px;
+    }
+
+    .checker-card {
+        padding: 22px 16px;
+    }
+
+    .checker-header h1 {
+        font-size: 22px;
+    }
+
+    .form-group label {
+        font-size: 12px;
+    }
+
+    .form-group input[type="text"] {
+        height: 44px;
+        font-size: 13px;
+    }
+
+    .form-group textarea {
+        min-height: 175px;
+        font-size: 13px;
+    }
+
+    .check-btn {
+        height: 46px;
+    }
+
+    .result-box {
+        padding: 18px 14px;
+    }
+
+    .result-summary {
+        font-size: 13px;
+    }
+
+    .flags-list li {
+        font-size: 12px;
+    }
+}

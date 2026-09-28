@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login / Sign Up</title>
+    <link rel="stylesheet" href="{% static 'emailgen/css/auth.css' %}">
+</head>
+<body>
+
+<div class="auth-box">
+    <div class="tabs">
+        <div class="tab active" id="tab-login" onclick="showTab('login')">Login</div>
+        <div class="tab" id="tab-signup" onclick="showTab('signup')">Sign Up</div>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div id="login-panel" class="form-panel active">
+        <h2>Welcome Back</h2>
+
+        <form method="post" action="{% url 'registration' %}">
+            {% csrf_token %}
+
+            {% if login_form.errors %}
+            <div class="error-box">
+              {% for field, errs in login_form.errors.items %}
+                {{ field }}: {{ errs.0 }}<br>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Enter username" required>
+
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter password" required>
+
+            <button type="submit" name="login_submit">Login</button>
+        </form>
+    </div>
+
+    <!-- SIGNUP FORM -->
+    <div id="signup-panel" class="form-panel">
+        <h2>Create Account</h2>
+
+        <form method="post" action="{% url 'registration' %}">
+            {% csrf_token %}
+
+            {% if signup_form.errors %}
+            <div class="error-box">
+              {% for field, errs in signup_form.errors.items %}
+                {{ field }}: {{ errs.0 }}<br>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Choose a username" required>
+
+            <label>Email</label>
+            <input type="email" name="email" placeholder="you@gmail.com" required>
+
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Create password" required>
+
+            <label>Confirm Password</label>
+            <input type="password" name="repassword" placeholder="Re-enter password" required>
+
+            <button type="submit" name="signup_submit">Sign Up</button>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'emailgen/js/auth.js' %}"></script>
+
+</body>
+</html>

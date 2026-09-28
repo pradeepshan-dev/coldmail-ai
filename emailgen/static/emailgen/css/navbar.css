@@ -1,0 +1,1376 @@
+/* =========================================================
+   ColdMail AI - Premium Navigation Bar
+
+   Selected section:
+   - Blue background
+   - White text
+
+   Other sections:
+   - Normal white background
+   - Gray text
+
+   Responsive:
+   - Desktop
+   - Tablet
+   - Mobile
+   ========================================================= */
+
+
+/* =========================================================
+   GLOBAL RESET
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.navbar {
+
+    width: 100%;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #eaecf0;
+
+    box-shadow:
+        0 1px 3px rgba(16, 24, 40, 0.04);
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+}
+
+
+/* =========================================================
+   NAVBAR INNER
+   ========================================================= */
+
+.navbar-inner {
+
+    width: 100%;
+
+    max-width: 1600px;
+
+    min-height: 72px;
+
+    margin: 0 auto;
+
+    padding: 0 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    position: relative;
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.navbar-brand {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    text-decoration: none;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   PREMIUM LOGO
+   ========================================================= */
+
+.brand-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1e3c72 0%,
+            #2563eb 100%
+        );
+
+    border-radius: 11px;
+
+    box-shadow:
+        0 4px 10px
+        rgba(37, 99, 235, 0.20),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.20);
+}
+
+
+/* Mail icon */
+
+.brand-mail {
+
+    color: #ffffff;
+
+    font-size: 19px;
+
+    line-height: 1;
+
+    transform:
+        translateY(1px);
+}
+
+
+/* AI sparkle */
+
+.brand-spark {
+
+    position: absolute;
+
+    top: -5px;
+
+    right: -5px;
+
+    width: 17px;
+
+    height: 17px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #ffffff;
+
+    color: #2563eb;
+
+    border:
+        1px solid #dbe5ff;
+
+    border-radius: 50%;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 2px 6px
+        rgba(16, 24, 40, 0.12);
+}
+
+
+/* =========================================================
+   BRAND TEXT
+   ========================================================= */
+
+.brand-text {
+
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 4px;
+}
+
+
+.brand-name {
+
+    color: #172033;
+
+    font-size: 20px;
+
+    font-weight: 750;
+
+    letter-spacing: -0.5px;
+}
+
+
+.brand-ai {
+
+    color: #2563eb;
+
+    font-size: 19px;
+
+    font-weight: 750;
+
+    letter-spacing: -0.4px;
+}
+
+
+/* =========================================================
+   NAVIGATION CONTAINER
+   ========================================================= */
+
+.navbar-links {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 3px;
+}
+
+
+/* =========================================================
+   NORMAL NAVIGATION LINKS
+   ========================================================= */
+
+.nav-link {
+
+    min-height: 40px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 8px 10px;
+
+    color: #475467;
+
+    background: transparent;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 13.5px;
+
+    font-weight: 550;
+
+    white-space: nowrap;
+
+    transition:
+        color 0.18s ease,
+        background-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+/* =========================================================
+   NAVIGATION ICONS
+   ========================================================= */
+
+.nav-icon {
+
+    color: #667085;
+
+    font-size: 15px;
+
+    line-height: 1;
+
+    transition:
+        color 0.18s ease;
+}
+
+
+.plus-icon {
+
+    width: 17px;
+
+    height: 17px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #667085;
+
+    font-size: 17px;
+
+    font-weight: 400;
+
+    line-height: 1;
+
+    transition:
+        color 0.18s ease;
+}
+
+
+/* =========================================================
+   NORMAL LINK HOVER
+   ========================================================= */
+
+.nav-link:hover {
+
+    color: #1e3c72;
+
+    background: #f4f7fb;
+}
+
+
+.nav-link:hover .nav-icon,
+.nav-link:hover .plus-icon {
+
+    color: #2563eb;
+}
+
+
+/* =========================================================
+   ACTIVE / SELECTED SECTION
+   =========================================================
+
+   ONLY the current page receives this class.
+
+   Example:
+
+   Dashboard:
+   class="nav-link active"
+
+   New Email:
+   class="nav-link active"
+
+   History:
+   class="nav-link active"
+
+   etc.
+   ========================================================= */
+
+.navbar-links .nav-link.active {
+
+    color: #ffffff;
+
+    background: #2563eb;
+
+    border-radius: 8px;
+
+    font-weight: 650;
+
+    box-shadow:
+        0 2px 5px
+        rgba(37, 99, 235, 0.18);
+}
+
+
+/* Active icon */
+
+.navbar-links .nav-link.active .nav-icon,
+.navbar-links .nav-link.active .plus-icon {
+
+    color: #ffffff;
+}
+
+
+/* Active hover */
+
+.navbar-links .nav-link.active:hover {
+
+    color: #ffffff;
+
+    background: #1d4ed8;
+
+    box-shadow:
+        0 4px 9px
+        rgba(37, 99, 235, 0.22);
+}
+
+
+/* =========================================================
+   NEW EMAIL
+   IMPORTANT:
+
+   New Email is NORMAL by default.
+
+   It becomes blue ONLY when Django adds .active.
+   ========================================================= */
+
+.navbar-links .new-email-link {
+
+    margin-left: 5px;
+
+    margin-right: 4px;
+
+    background: transparent;
+
+    color: #475467;
+
+    box-shadow: none;
+}
+
+
+/* New Email hover */
+
+.navbar-links .new-email-link:hover {
+
+    color: #1e3c72;
+
+    background: #f4f7fb;
+
+    box-shadow: none;
+}
+
+
+/* New Email selected */
+
+.navbar-links .new-email-link.active {
+
+    color: #ffffff;
+
+    background: #2563eb;
+
+    box-shadow:
+        0 2px 5px
+        rgba(37, 99, 235, 0.18);
+}
+
+
+/* =========================================================
+   PROFILE MENU
+   ========================================================= */
+
+.profile-menu-wrapper {
+
+    position: relative;
+
+    margin-left: 8px;
+}
+
+
+/* =========================================================
+   PROFILE BUTTON
+   ========================================================= */
+
+.profile-trigger {
+
+    min-height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+        4px 7px 4px 5px;
+
+    background: #ffffff;
+
+    border:
+        1px solid #eaecf0;
+
+    border-radius: 10px;
+
+    color: #344054;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.profile-trigger:hover {
+
+    background: #f9fafb;
+
+    border-color: #d0d5dd;
+
+    box-shadow:
+        0 2px 6px
+        rgba(16, 24, 40, 0.06);
+}
+
+
+/* =========================================================
+   PROFILE AVATAR
+   ========================================================= */
+
+.profile-avatar-img,
+.profile-avatar-initial {
+
+    width: 31px;
+
+    height: 31px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+}
+
+
+/* Profile image */
+
+.profile-avatar-img {
+
+    display: block;
+
+    object-fit: cover;
+
+    border:
+        2px solid #eef2ff;
+}
+
+
+/* Default avatar */
+
+.profile-avatar-initial {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #eaf1ff;
+
+    color: #2563eb;
+
+    border:
+        1px solid #dbe5ff;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* Username */
+
+.profile-username {
+
+    max-width: 105px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+/* Chevron */
+
+.profile-chevron {
+
+    color: #98a2b3;
+
+    font-size: 16px;
+
+    line-height: 1;
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* =========================================================
+   PROFILE DROPDOWN
+   ========================================================= */
+
+.profile-dropdown {
+
+    width: 290px;
+
+    position: absolute;
+
+    top:
+        calc(100% + 10px);
+
+    right: 0;
+
+    padding: 8px;
+
+    background: #ffffff;
+
+    border:
+        1px solid #eaecf0;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 12px 30px
+        rgba(16, 24, 40, 0.12),
+
+        0 2px 6px
+        rgba(16, 24, 40, 0.05);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        translateY(-5px);
+
+    transition:
+        opacity 0.18s ease,
+        transform 0.18s ease,
+        visibility 0.18s ease;
+}
+
+
+/* Show dropdown */
+
+.profile-dropdown.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translateY(0);
+}
+
+
+/* =========================================================
+   PROFILE DROPDOWN HEADER
+   ========================================================= */
+
+.profile-dropdown-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 10px;
+}
+
+
+/* Large avatar */
+
+.profile-avatar-img-large,
+.profile-avatar-initial-large {
+
+    width: 44px;
+
+    height: 44px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+}
+
+
+/* Large profile image */
+
+.profile-avatar-img-large {
+
+    object-fit: cover;
+
+    border:
+        2px solid #eef2ff;
+}
+
+
+/* Large default avatar */
+
+.profile-avatar-initial-large {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #eaf1ff;
+
+    color: #2563eb;
+
+    border:
+        1px solid #dbe5ff;
+
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+
+/* User information */
+
+.profile-user-info {
+
+    min-width: 0;
+}
+
+
+.profile-dropdown-name {
+
+    color: #172033;
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.profile-dropdown-email {
+
+    margin-top: 3px;
+
+    color: #667085;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   PROFILE DIVIDER
+   ========================================================= */
+
+.profile-divider {
+
+    height: 1px;
+
+    margin:
+        5px 2px;
+
+    background: #eaecf0;
+}
+
+
+/* =========================================================
+   DROPDOWN SECTION
+   ========================================================= */
+
+.profile-dropdown-section {
+
+    padding: 3px;
+}
+
+
+/* =========================================================
+   CHANGE PHOTO
+   ========================================================= */
+
+.profile-upload-label {
+
+    min-height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding:
+        8px 9px;
+
+    color: #344054;
+
+    border-radius: 7px;
+
+    font-size: 13px;
+
+    font-weight: 550;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.18s ease;
+}
+
+
+.profile-upload-label:hover {
+
+    background: #f5f7fa;
+}
+
+
+/* Dropdown icon */
+
+.dropdown-item-icon {
+
+    width: 25px;
+
+    height: 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #f2f4f7;
+
+    border-radius: 6px;
+
+    color: #667085;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   GMAIL CONNECTION
+   ========================================================= */
+
+.profile-dropdown-label {
+
+    display: block;
+
+    margin:
+        8px 9px 5px;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* Gmail connected */
+
+.profile-gmail-connected {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding:
+        8px 9px;
+
+    color: #027a48;
+
+    background: #ecfdf3;
+
+    border-radius: 7px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+/* Green connection dot */
+
+.connection-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    background: #12b76a;
+
+    border-radius: 50%;
+}
+
+
+/* Connect Gmail */
+
+.profile-gmail-connect-link {
+
+    display: block;
+
+    padding:
+        8px 9px;
+
+    color: #2563eb;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition:
+        background-color 0.18s ease;
+}
+
+
+.profile-gmail-connect-link:hover {
+
+    background: #eff6ff;
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+.profile-dropdown-logout {
+
+    margin: 3px;
+
+    padding: 0;
+}
+
+
+.profile-dropdown-logout button {
+
+    width: 100%;
+
+    min-height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding:
+        8px 9px;
+
+    color: #b42318;
+
+    background: transparent;
+
+    border: none;
+
+    border-radius: 7px;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.18s ease;
+}
+
+
+.profile-dropdown-logout button:hover {
+
+    background: #fff5f4;
+}
+
+
+/* =========================================================
+   MOBILE MENU BUTTON
+   ========================================================= */
+
+.menu-toggle {
+
+    display: none;
+
+    width: 42px;
+
+    height: 42px;
+
+    padding: 9px;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    background: #ffffff;
+
+    border:
+        1px solid #d0d5dd;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+
+.menu-toggle span {
+
+    width: 19px;
+
+    height: 2px;
+
+    background: #344054;
+
+    border-radius: 2px;
+}
+
+
+.menu-toggle:hover {
+
+    background: #f9fafb;
+
+    border-color: #98a2b3;
+}
+
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+   ========================================================= */
+
+@media (max-width: 1180px) {
+
+    .navbar-inner {
+
+        padding:
+            0 22px;
+    }
+
+
+    .navbar-links {
+
+        gap: 1px;
+    }
+
+
+    .nav-link {
+
+        padding:
+            8px;
+
+        font-size: 13px;
+    }
+
+
+    .nav-icon {
+
+        font-size: 14px;
+    }
+
+
+    .profile-username {
+
+        max-width: 80px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .navbar-inner {
+
+        min-height: 68px;
+
+        padding:
+            12px 20px;
+    }
+
+
+    /* Show hamburger */
+
+    .menu-toggle {
+
+        display: flex;
+    }
+
+
+    /* Hide navigation */
+
+    .navbar-links {
+
+        display: none;
+
+        width: 100%;
+
+        position: absolute;
+
+        top:
+            calc(100% + 1px);
+
+        left: 0;
+
+        padding:
+            10px 16px 14px;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 3px;
+
+        background: #ffffff;
+
+        border-bottom:
+            1px solid #eaecf0;
+
+        box-shadow:
+            0 10px 20px
+            rgba(16, 24, 40, 0.08);
+    }
+
+
+    /* Show mobile navigation */
+
+    .navbar-links.show {
+
+        display: flex;
+    }
+
+
+    /* Mobile links */
+
+    .nav-link {
+
+        width: 100%;
+
+        min-height: 44px;
+
+        padding:
+            10px 12px;
+
+        font-size: 14px;
+    }
+
+
+    .nav-icon {
+
+        width: 20px;
+
+        font-size: 16px;
+
+        text-align: center;
+    }
+
+
+    /* New Email mobile */
+
+    .navbar-links .new-email-link {
+
+        margin:
+            2px 0;
+    }
+
+
+    /* Profile */
+
+    .profile-menu-wrapper {
+
+        width: 100%;
+
+        margin:
+            4px 0 0;
+
+        padding-top: 6px;
+
+        border-top:
+            1px solid #eaecf0;
+    }
+
+
+    /* Profile trigger */
+
+    .profile-trigger {
+
+        width: 100%;
+
+        justify-content: flex-start;
+
+        min-height: 46px;
+
+        border: none;
+
+        background: #f8fafc;
+    }
+
+
+    .profile-trigger:hover {
+
+        background: #f2f4f7;
+
+        border: none;
+
+        box-shadow: none;
+    }
+
+
+    .profile-username {
+
+        max-width: none;
+    }
+
+
+    .profile-chevron {
+
+        margin-left: auto;
+    }
+
+
+    /* Mobile profile dropdown */
+
+    .profile-dropdown {
+
+        width: 100%;
+
+        position: relative;
+
+        top: auto;
+
+        right: auto;
+
+        margin-top: 6px;
+
+        box-shadow: none;
+
+        border-color: #eaecf0;
+
+        transform: none;
+    }
+
+
+    .profile-dropdown.active {
+
+        transform: none;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .navbar-inner {
+
+        min-height: 64px;
+
+        padding:
+            10px 14px;
+    }
+
+
+    .brand-icon {
+
+        width: 36px;
+
+        height: 36px;
+
+        border-radius: 10px;
+    }
+
+
+    .brand-mail {
+
+        font-size: 17px;
+    }
+
+
+    .brand-spark {
+
+        width: 15px;
+
+        height: 15px;
+
+        font-size: 8px;
+    }
+
+
+    .brand-name {
+
+        font-size: 18px;
+    }
+
+
+    .brand-ai {
+
+        font-size: 17px;
+    }
+
+
+    .menu-toggle {
+
+        width: 40px;
+
+        height: 40px;
+    }
+
+
+    .navbar-links {
+
+        padding-left: 12px;
+
+        padding-right: 12px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+    .navbar-inner {
+
+        padding-left: 11px;
+
+        padding-right: 11px;
+    }
+
+
+    .brand-name {
+
+        font-size: 17px;
+    }
+
+
+    .brand-ai {
+
+        font-size: 16px;
+    }
+
+
+    .brand-icon {
+
+        width: 34px;
+
+        height: 34px;
+    }
+
+}

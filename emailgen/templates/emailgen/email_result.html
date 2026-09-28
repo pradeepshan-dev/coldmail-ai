@@ -1,0 +1,491 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Generated Email - ColdMail AI</title>
+
+    <!-- Email result stylesheet -->
+    <link rel="stylesheet" href="{% static 'emailgen/css/email_result.css' %}?v=1002">
+
+</head>
+
+<body>
+
+    <!-- Shared navigation bar -->
+    {% include 'emailgen/partials/navbar.html' %}
+
+
+    <!-- Main email result page -->
+    <main class="result-page">
+
+
+        <!-- =====================================================
+             Generated email card
+             ===================================================== -->
+
+        <section class="result-card">
+
+
+            <!-- Page heading -->
+            <div class="result-header">
+
+                <span class="result-label">
+                    AI GENERATED EMAIL
+                </span>
+
+                <h1>
+                    Your Generated Email
+                </h1>
+
+                <p>
+                    Review your personalized email, copy it, or send it
+                    directly through Gmail.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 Company
+                 ================================================= -->
+
+            <div class="form-group">
+
+                <label>
+                    Company
+                </label>
+
+                <div class="company-name">
+                    {{ email_request.company_name }}
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 Application Status
+                 ================================================= -->
+
+            <div class="form-group">
+
+                <label for="statusSelect">
+                    Application Status
+                </label>
+
+                <select id="statusSelect" onchange="updateStatus()">
+                    <option value="sent" {% if email_request.status == 'sent' %}selected{% endif %}>Sent</option>
+                    <option value="no_response" {% if email_request.status == 'no_response' %}selected{% endif %}>No Response</option>
+                    <option value="replied" {% if email_request.status == 'replied' %}selected{% endif %}>Got Reply</option>
+                    <option value="interview" {% if email_request.status == 'interview' %}selected{% endif %}>Interview Scheduled</option>
+                    <option value="rejected" {% if email_request.status == 'rejected' %}selected{% endif %}>Rejected</option>
+                    <option value="offer" {% if email_request.status == 'offer' %}selected{% endif %}>Offer Received</option>
+                </select>
+
+                <p id="statusMsg" class="status-msg">
+                    Status updated!
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 Subject
+                 ================================================= -->
+
+            <div class="form-group">
+
+                <label for="subject">
+                    Subject Line
+                </label>
+
+                <input
+                    type="text"
+                    id="subject"
+                    value="{{ email_request.subject_line }}"
+                    readonly
+                >
+
+            </div>
+
+
+            <!-- =================================================
+                 Email Body
+                 ================================================= -->
+
+            <div class="form-group">
+
+                <label for="body">
+                    Email Body
+                </label>
+
+                <textarea
+                    id="body"
+                    rows="12"
+                    readonly
+                >{{ email_request.generated_body }}</textarea>
+
+            </div>
+
+
+            <!-- Copy success message -->
+            <p class="copied-msg" id="copiedMsg">
+                Copied to clipboard!
+            </p>
+
+
+            <!-- =================================================
+                 Main actions
+                 ================================================= -->
+
+            <div class="btn-row">
+
+                <button
+                    type="button"
+                    class="btn-copy"
+                    onclick="copyEmail()"
+                >
+                    Copy Email
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn-new"
+                    onclick="window.location.href='{% url 'create_email' %}'"
+                >
+                    Create Another
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 Gmail sending section
+                 ================================================= -->
+
+            <div class="gmail-section">
+
+                <div class="gmail-header">
+
+                    <div class="gmail-icon">
+                        ↗
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Send via Gmail
+                        </h2>
+
+                        <p>
+                            Send this generated email directly from your
+                            connected Gmail account.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Recipient email -->
+                <div class="form-group">
+
+                    <label for="recipientEmail">
+                        Recipient Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="recipientEmail"
+                        placeholder="hr@company.com"
+                        value="{{ email_request.recipient_email }}"
+                    >
+
+                </div>
+
+
+                <!-- Optional resume attachment -->
+                <div class="form-group">
+
+                    <label for="resumeFile">
+                        Attach Resume
+                        <span class="optional-label">
+                            Optional
+                        </span>
+                    </label>
+
+                    <input
+                        type="file"
+                        id="resumeFile"
+                        accept=".pdf,.doc,.docx"
+                    >
+
+                    <span class="field-help">
+                        Attach your resume if you want to include it with the email.
+                    </span>
+
+                </div>
+
+
+                <!-- Send button -->
+                <button
+                    type="button"
+                    class="send-gmail-btn"
+                    onclick="sendViaGmail()"
+                >
+                    Send via Gmail
+                </button>
+
+
+                <!-- Send status -->
+                <p id="sendStatus" class="send-status"></p>
+
+            </div>
+
+
+            <!-- =================================================
+                 Back to dashboard
+                 ================================================= -->
+
+            <div class="back-link">
+
+                <a href="{% url 'home' %}">
+                    ← Back to Dashboard
+                </a>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         JavaScript
+         ========================================================= -->
+
+    <script>
+
+        /*
+         * Copy the generated subject and body
+         * to the user's clipboard.
+         */
+        function copyEmail() {
+
+            const subject =
+                document.getElementById('subject').value;
+
+            const body =
+                document.getElementById('body').value;
+
+            const fullText =
+                "Subject: " + subject + "\n\n" + body;
+
+
+            navigator.clipboard.writeText(fullText)
+                .then(function () {
+
+                    const msg =
+                        document.getElementById('copiedMsg');
+
+                    msg.style.display = 'block';
+
+
+                    setTimeout(function () {
+                        msg.style.display = 'none';
+                    }, 2000);
+
+                });
+
+        }
+
+
+        /*
+         * Get the Django CSRF cookie.
+         * This is required for POST requests
+         * (Gmail send + status update).
+         */
+        function getCookie(name) {
+
+            const value =
+                `; ${document.cookie}`;
+
+            const parts =
+                value.split(`; ${name}=`);
+
+
+            if (parts.length === 2) {
+                return parts.pop().split(';').shift();
+            }
+
+        }
+
+
+        /*
+         * Update the application status for this email.
+         */
+        function updateStatus() {
+
+            const select =
+                document.getElementById('statusSelect');
+
+            const msg =
+                document.getElementById('statusMsg');
+
+            const formData =
+                new FormData();
+
+            formData.append('status', select.value);
+
+            fetch(
+                "{% url 'update_status' email_request.pk %}",
+                {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: formData,
+                }
+            )
+            .then(function (res) {
+                return res.json();
+            })
+            .then(function (data) {
+                if (data.success) {
+                    msg.style.display = 'block';
+                    setTimeout(function () {
+                        msg.style.display = 'none';
+                    }, 2000);
+                }
+            });
+
+        }
+
+
+        /*
+         * Send the generated email through Gmail.
+         */
+        function sendViaGmail() {
+
+            const recipient =
+                document.getElementById('recipientEmail')
+                    .value
+                    .trim();
+
+            const fileInput =
+                document.getElementById('resumeFile');
+
+            const statusEl =
+                document.getElementById('sendStatus');
+
+
+            /* Check recipient email */
+            if (!recipient) {
+
+                statusEl.textContent =
+                    'Please enter a recipient email.';
+
+                statusEl.className =
+                    'send-status error';
+
+                return;
+            }
+
+
+            /*
+             * FormData allows us to send both
+             * text data and an optional resume file.
+             */
+            const formData =
+                new FormData();
+
+            formData.append(
+                'recipient_email',
+                recipient
+            );
+
+
+            if (fileInput.files.length > 0) {
+
+                formData.append(
+                    'resume_file',
+                    fileInput.files[0]
+                );
+
+            }
+
+
+            /* Show sending status */
+            statusEl.textContent =
+                'Sending...';
+
+            statusEl.className =
+                'send-status sending';
+
+
+            /*
+             * Send the request to Django.
+             */
+            fetch(
+                "{% url 'send_email_gmail' email_request.pk %}",
+                {
+                    method: 'POST',
+
+                    headers: {
+                        'X-CSRFToken':
+                            getCookie('csrftoken')
+                    },
+
+                    body: formData,
+                }
+            )
+
+            .then(function (res) {
+                return res.json();
+            })
+
+            .then(function (data) {
+
+                if (data.error) {
+
+                    statusEl.textContent =
+                        'Error: ' + data.error;
+
+                    statusEl.className =
+                        'send-status error';
+
+                    return;
+                }
+
+
+                statusEl.textContent =
+                    'Email sent successfully! ✅';
+
+                statusEl.className =
+                    'send-status success';
+
+            })
+
+            .catch(function () {
+
+                statusEl.textContent =
+                    'Something went wrong. Try again.';
+
+                statusEl.className =
+                    'send-status error';
+
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>

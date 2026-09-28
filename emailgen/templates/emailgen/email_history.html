@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Email History - ColdMail AI</title>
+
+    <!-- Email history page stylesheet -->
+    <link rel="stylesheet" href="{% static 'emailgen/css/email_history.css' %}?v=1001">
+</head>
+
+<body>
+
+    {% include 'emailgen/partials/navbar.html' %}
+
+    <!-- Main email history area -->
+    <main class="history-page">
+
+        <!-- History card -->
+        <section class="history-card">
+
+            <!-- Page heading -->
+            <div class="history-header">
+                <span class="history-label">YOUR EMAIL ACTIVITY</span>
+
+                <h1>Email History</h1>
+
+                <p>
+                    View and manage the personalized cold emails you have generated.
+                </p>
+            </div>
+
+            {% if emails %}
+
+                <!-- List of generated emails -->
+                <div class="history-list">
+
+                    {% for email in emails %}
+
+                        <!-- Each history item opens the generated email -->
+                        <a href="{% url 'email_result' email.pk %}" class="history-item">
+
+                            <!-- Email icon -->
+                            <div class="history-icon">✉</div>
+
+                            <!-- Email information -->
+                            <div class="history-content">
+
+                                <div class="history-top">
+                                    <h2>{{ email.company_name }}</h2>
+
+                                    <span class="history-tone">
+                                        {{ email.tone|title }}
+                                    </span>
+
+                                    <span class="status-badge status-{{ email.status }}">
+                                        {{ email.get_status_display }}
+                                    </span>
+                                </div>
+
+                                <p class="history-subject">
+                                    {{ email.subject_line }}
+                                </p>
+
+                                <!-- Show recipient when available -->
+                                {% if email.recipient_email %}
+                                    <p class="history-recipient">
+                                        To: {{ email.recipient_email }}
+                                    </p>
+                                {% endif %}
+
+                                <p class="history-date">
+                                    {{ email.created_at|date:"M d, Y g:i A" }}
+                                </p>
+
+                            </div>
+
+                            <!-- Arrow indicating the item is clickable -->
+                            <span class="history-arrow">→</span>
+
+                        </a>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <!-- Empty history state -->
+                <div class="empty-state">
+
+                    <div class="empty-icon">✉</div>
+
+                    <h2>No emails yet</h2>
+
+                    <p>
+                        Create your first personalized cold email and it will appear here.
+                    </p>
+
+                    <a href="{% url 'create_email' %}" class="empty-button">
+                        Create Your First Email
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+            <!-- Back to dashboard -->
+            <div class="back-link">
+                <a href="{% url 'home' %}">← Back to Dashboard</a>
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

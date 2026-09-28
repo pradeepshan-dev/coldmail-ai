@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Email - ColdMail AI</title>
+
+  <link rel="stylesheet" href="{% static 'emailgen/css/create_email.css' %}?v=999">
+</head>
+
+<body>
+
+    {% include 'emailgen/partials/navbar.html' %}
+
+
+    <!-- Main content area for creating a new cold email -->
+    <main class="create-email-page">
+
+        <!-- Create email form card -->
+        <div class="form-box">
+
+            <!-- Page heading and short description -->
+            <div class="form-header">
+
+                <h2>Create a Cold Email</h2>
+
+                <p>
+                    Provide the job and your background, and ColdMail AI
+                    will create a personalized email for you.
+                </p>
+
+            </div>
+
+
+            <!-- Display form validation errors when they occur -->
+            {% if form.errors %}
+            <div class="error-box">
+
+                {% for field, errs in form.errors.items %}
+                    {{ field }}: {{ errs.0 }}<br>
+                {% endfor %}
+
+            </div>
+            {% endif %}
+
+
+            <!-- Cold email generation form -->
+            <form method="post">
+
+                {% csrf_token %}
+
+
+                <!-- Company name field -->
+                <div class="form-group">
+
+                    <label for="company_name">
+                        Company Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="company_name"
+                        name="company_name"
+                        placeholder="e.g. Google"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Role title field -->
+                <div class="form-group">
+
+                    <label for="role_title">
+                        Role Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="role_title"
+                        name="role_title"
+                        placeholder="e.g. Software Engineer, Data Analyst"
+                        required
+                    >
+
+                    <span class="field-help">
+                        Used to improve email quality and reliability for future requests.
+                    </span>
+
+                </div>
+
+
+                <!-- Resume or background field -->
+                <div class="form-group">
+
+                    <label for="resume_text">
+                        Your Resume / Background
+                    </label>
+
+                    <textarea
+                        id="resume_text"
+                        name="resume_text"
+                        rows="6"
+                        placeholder="Paste your resume text here"
+                        required
+                    ></textarea>
+
+                    <span class="field-help">
+                        Include your skills, education, projects, and experience.
+                    </span>
+
+                </div>
+
+
+                <!-- Job description field -->
+                <div class="form-group">
+
+                    <label for="job_description">
+                        Job Description
+                    </label>
+
+                    <textarea
+                        id="job_description"
+                        name="job_description"
+                        rows="6"
+                        placeholder="Paste the job description here"
+                        required
+                    ></textarea>
+
+                    <span class="field-help">
+                        Paste the job requirements or description from the job posting.
+                    </span>
+
+                </div>
+
+
+                <!-- Email tone selection -->
+                <div class="form-group">
+
+                    <label for="tone">
+                        Tone
+                    </label>
+
+                    <select id="tone" name="tone">
+
+                        <option value="formal">
+                            Formal
+                        </option>
+
+                        <option value="friendly">
+                            Friendly
+                        </option>
+
+                        <option value="confident">
+                            Confident
+                        </option>
+
+                        <option value="enthusiastic">
+                            Enthusiastic
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Main form submission button -->
+                <button type="submit" class="generate-btn">
+                    Generate Email
+                </button>
+
+            </form>
+
+
+            <!-- Link to return to the dashboard -->
+            <div class="back-link">
+
+                <a href="{% url 'home' %}">
+                    ← Back to Dashboard
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
